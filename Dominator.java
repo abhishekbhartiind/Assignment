@@ -32,40 +32,34 @@ Elements of input arrays can be modified.
 
 */
 
-class Solution {
-    public int solution(int[] A) {
-        // write your code in Java SE 
-        int value = 0;
-        int size = 0;
-        for (int i = 0; i < A.length; i++) {
-            if(size == 0) {
-                size++;
-                value = A[i];
-            } else {
-                if (value != A[i]) {
-                    size -=1;
-                } else {
-                    size++;
-                }
-            }
-        }
-        int candidate = -1;
-        if(size > 0) {
-            candidate = value;
-        }
-        int index = -1;
-        int count = 0;
-        for (int i = 0; i < A.length; i++) {
-            if (A[i] == candidate) {
-                count++;
-                index = i;
-            }
-        }
-        if(count > (A.length/2)) {
-            return index;
-        } else {
-            return -1; 
-        }
-    
-    }
-}
+public static int dominator(int[] A) {
+    if(A.length == 0) return -1;
+      int count     = 0;
+      int elem      = A[0];
+      
+      for(int i : A){
+          if(i == elem){    
+              count++;
+          } else {
+              if(count == 0){
+                  count++;
+                  elem = i;
+              }
+              else count--;
+          }
+      }
+      
+      int ct = 0;
+      int ind = -1;
+      
+      for(int i = 0; i < A.length; i++){
+          if(A[i] == elem){
+              ct++;
+              ind = i;
+          }
+          
+      }
+      
+      if(ct > A.length/2) return ind;
+      else return -1;
+  }
